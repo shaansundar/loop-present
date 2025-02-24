@@ -43,15 +43,15 @@ export default function Home() {
         {isLoadingAttendanceStatus ? <div className="flex items-center justify-center h-screen">
           <Loader2 className="w-10 h-10 animate-spin" />
         </div> : currentAttendanceStatusDetails && currentAttendanceStatusDetails.length > 0 && <div className="flex flex-col gap-4">
-          <div className="flex sticky top-0 bg-background py-4 flex-row items-center justify-between">
-            <div className="flex flex-row items-center justify-start gap-2">
-              <h1 className="text-lg font-bold">Attendance Status</h1>
-              <p className="text-sm text-gray-400">({currentAttendanceStatusDetails[0]?.presentcnt}/{currentAttendanceStatusDetails[0]?.totalcnt} Present Currently)</p>
-              <p className="text-sm text-gray-400">({selectedValues.studentsToMark.length} Selected)</p>
+          <div className="flex sticky top-0 bg-background py-4 flex-col lg:flex-row gap-4 lg:gap-0 items-center justify-between">
+            <div className="flex sm:w-full w-fit flex-col sm:flex-row items-start sm:items-center justify-start gap-2">
+              <h1 className="text-sm sm:text-lg w-fit text-nowrap font-bold">Attendance Status</h1>
+              <p className="text-xs sm:text-sm w-fit text-nowrap text-gray-400">({currentAttendanceStatusDetails[0]?.presentcnt}/{currentAttendanceStatusDetails[0]?.totalcnt} Present Currently)</p>
+              <p className="text-xs sm:text-sm w-fit text-nowrap text-gray-400">({selectedValues.studentsToMark.length} Selected)</p>
             </div>
-            <div className="flex items-center justify-start gap-4">
+            <div className="flex w-full flex-col sm:flex-row items-center lg:justify-end justify-start gap-4">
               <div className="flex flex-row items-center justify-start gap-2">
-                <p className="text-sm text-gray-400">Filter Students</p>
+                <p className="text-sm text-nowrap text-gray-400">Filter Students</p>
                 <Switch checked={filter} onCheckedChange={() => setFilter(!filter)} />
               </div>
               <Button onClick={() => insertAttendance()} disabled={selectedValues.studentsToMark.length === 0}>Mark Attendance</Button>

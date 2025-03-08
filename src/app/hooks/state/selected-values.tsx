@@ -8,6 +8,7 @@ type SelectedValues = {
     facultyName: string;
     studentsToMark: string[];
     slot: '1' | '2' | '3' | '4' | '';
+    section: '1' | '2' | '6';
 }
 
 type SelectedValuesContextType = {
@@ -21,7 +22,8 @@ const SelectedValuesContext = createContext<SelectedValuesContextType>({
         subject: "",
         facultyName: "",
         studentsToMark: [],
-        slot: ""
+        slot: "",
+        section: "2"
     },
     setSelectedValues: () => {}
 }); 
@@ -36,7 +38,8 @@ export const SelectedValuesProvider = ({ children }: { children: React.ReactNode
         subject: "",
         facultyName: "",
         studentsToMark: [],
-        slot: ""
+        slot: "",
+        section: "2"
     });
 
     return (

@@ -12,13 +12,28 @@ import { DatePicker } from "@/components/ui/date-picker"
 import { useSelectedValues } from "../hooks/state/selected-values";
 
 const SelectSubject = () => {
-    const { setSelectedValues } = useSelectedValues();
+    const { setSelectedValues, selectedValues } = useSelectedValues();
 
     return (
         <Card>
             <CardHeader className="flex flex-col gap-4 lg:flex-row items-start justify-start lg:items-center lg:justify-between">
                 <CardTitle className="text-nowrap">Select Subject</CardTitle>
                 <div className="flex flex-col md:flex-row items-start w-full md:items-center md:justify-end gap-4">
+                    <Select value={selectedValues.section} onValueChange={(value: string) => {
+                        setSelectedValues((prev) => ({
+                            ...prev,
+                            section: value as '1' | '2' | '6'
+                        }));
+                    }}>
+                        <SelectTrigger className="w-full max-w-full md:max-w-36">
+                            <SelectValue placeholder="Select Section" />
+                        </SelectTrigger>
+                        <SelectContent>
+                            <SelectItem value="1">Section 1</SelectItem>
+                            <SelectItem value="2">Section 2</SelectItem>
+                            <SelectItem value="6">Section 6</SelectItem>
+                        </SelectContent>
+                    </Select>
                     <DatePicker />
                     <Select onValueChange={(value: string) => {
                         setSelectedValues((prev) => ({
@@ -36,8 +51,9 @@ const SelectSubject = () => {
                             <SelectItem value="4">Slot 4</SelectItem>
                         </SelectContent>
                     </Select>
+                    
                     <Select onValueChange={(value: string) => {
-                        const selectedSubject = PROF_DETAILS.find(subject => subject.subject === value);
+                        const selectedSubject = PROF_DETAILS[selectedValues.section].find(subject => subject.subject === value);
                         setSelectedValues((prev) => ({
                             ...prev,
                             subject: selectedSubject?.subject || '',
@@ -48,7 +64,7 @@ const SelectSubject = () => {
                             <SelectValue placeholder="Select Subject" />
                         </SelectTrigger>
                         <SelectContent>
-                            {PROF_DETAILS.map((subject) => (
+                            {PROF_DETAILS[selectedValues.section].map((subject) => (
                                 <SelectItem key={subject.subject} value={subject.subject}>
                                     {subject.subject}
                                 </SelectItem>

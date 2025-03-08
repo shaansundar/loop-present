@@ -19,7 +19,8 @@ export default function Home() {
   const { data: currentAttendanceStatus, refetch: refetchAttendanceStatus, isLoading: isLoadingAttendanceStatus } = useCheckAttendanceStatus({
     facultyName: selectedValues.facultyName,
     subject: selectedValues.subject,
-    date: selectedValues.date
+    date: selectedValues.date,
+    section: selectedValues.section
   });
 
   const currentAttendanceStatusDetails: {

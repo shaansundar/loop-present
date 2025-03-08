@@ -2,7 +2,7 @@ import { BASE_URL, headers } from "@/app/constants/api";
 import { useMutation } from "@tanstack/react-query";
 import { toast } from "sonner";
 import { useSelectedValues } from "../state/selected-values";
-import { PROGRAM, SECTION, TERM } from "@/app/constants/profDetails";
+import { PROGRAM, TERM } from "@/app/constants/profDetails";
 import { SLOT_TIME_MAP } from "@/app/constants/studentDetails";
 
 const chooseRandomTimeInBetween = (end: string) => {
@@ -19,6 +19,7 @@ type SelectedValues = {
     slot: '1' | '2' | '3' | '4';
     date: string;
     facultyName: string;
+    section: '1' | '2' | '6';
 }
 
 const insertAttendance = async (selectedValues: SelectedValues) => {
@@ -29,7 +30,7 @@ const insertAttendance = async (selectedValues: SelectedValues) => {
         RollNo: selectedValues.studentsToMark,
         ProgramName: PROGRAM,
         Term: TERM,
-        Section: SECTION,
+        Section: selectedValues.section,
         facultyName: selectedValues.facultyName,
         Date: selectedValues.date,
         Time: time
@@ -43,7 +44,7 @@ const insertAttendance = async (selectedValues: SelectedValues) => {
             RollNo: selectedValues.studentsToMark,
             ProgramName: PROGRAM,
             Term: TERM,
-            Section: SECTION,
+            Section: selectedValues.section,
             facultyName: selectedValues.facultyName,
             Date: selectedValues.date,
             Time: time

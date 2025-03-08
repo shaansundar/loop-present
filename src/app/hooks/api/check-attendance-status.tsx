@@ -3,9 +3,9 @@ import { BASE_URL } from "@/app/constants/api";
 import { PROGRAM, SECTION, TERM } from "@/app/constants/profDetails";
 import { useQuery } from "@tanstack/react-query";
 
-export const useCheckAttendanceStatus = ({ facultyName, subject, date }: { facultyName: string, subject: string, date: string }) => {
+export const useCheckAttendanceStatus = ({ facultyName, subject, date, section }: { facultyName: string, subject: string, date: string, section: '1' | '2' | '6' }) => {
     return useQuery({
-        queryKey: ['check-attendance-status', facultyName, subject, date],
+        queryKey: ['check-attendance-status', facultyName, subject, date, section],
         queryFn: async () => {
             const response = await fetch(`${BASE_URL}/ViewStudentDetailsList`, {
                 headers: headers,
@@ -14,7 +14,7 @@ export const useCheckAttendanceStatus = ({ facultyName, subject, date }: { facul
                     "TeacherName": facultyName,
                     "Subject": subject,
                     "Date": date,
-                    "Section": SECTION,
+                    "Section": section,
                     "Terms": TERM,
                     "Program": PROGRAM
                 })
@@ -22,6 +22,7 @@ export const useCheckAttendanceStatus = ({ facultyName, subject, date }: { facul
             const data = await response.json();
             return data;
         },
-        enabled: !!facultyName && !!subject && !!date
+        enabled: !!facultyName && !!subject && !!date,
+        // refetchInterval: 1000
     })
 }
